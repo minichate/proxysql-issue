@@ -1,0 +1,30 @@
+---
+version: '2'
+services:
+  db:
+    image: 'mysql:5.6'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'stompy'
+      MYSQL_DATABASE: 'helloworld'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+  proxysql-router:
+    image: 'prima/proxysql'
+    command: '--initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
+    volumes:
+      - './proxysql.router.cfg:/etc/proxysql.cfg'
+    links:
+      - db
+  proxysql-forwarder:
+    image: 'prima/proxysql'
+    command: '--initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
+    volumes:
+      - './proxysql.forwarder.cfg:/etc/proxysql.cfg'
+    links:
+      - proxysql-router
+  test:
+    build: 'test'
+    links:
+      - db
+      - proxysql-router
+      - proxysql-forwarder
