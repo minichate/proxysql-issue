@@ -1,0 +1,3 @@
+[submodule "proxysql/proxysql"]
+	path = proxysql/proxysql
+	url = https://github.com/sysown/proxysql.git

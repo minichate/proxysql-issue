@@ -8,23 +8,23 @@ services:
       MYSQL_DATABASE: 'helloworld'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
-  proxysql-router:
-    image: 'prima/proxysql'
+  router:
+    build: 'proxysql'
     command: '--initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
     volumes:
       - './proxysql.router.cfg:/etc/proxysql.cfg'
     links:
       - db
-  proxysql-forwarder:
-    image: 'prima/proxysql'
+  forwarder:
+    build: 'proxysql'
     command: '--initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
     volumes:
       - './proxysql.forwarder.cfg:/etc/proxysql.cfg'
     links:
-      - proxysql-router
+      - router
   test:
     build: 'test'
     links:
       - db
-      - proxysql-router
-      - proxysql-forwarder
+      - router
+      - forwarder
