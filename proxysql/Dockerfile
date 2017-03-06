@@ -9,8 +9,8 @@ RUN ln -s /opt/rh/devtoolset-2/root/usr/bin/g++ /usr/bin/g++
 RUN echo "export CC=/opt/rh/devtoolset-2/root/usr/bin/gcc" >> /root/.bashrc
 RUN echo "export CPP=/opt/rh/devtoolset-2/root/usr/bin/cpp" >> /root/.bashrc
 RUN echo "export CXX=/opt/rh/devtoolset-2/root/usr/bin/c++" >> /root/.bashrc
-RUN 
 
 COPY ./entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+CMD ["tail",  "-f", "/dev/null"]
