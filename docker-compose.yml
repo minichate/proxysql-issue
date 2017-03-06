@@ -10,15 +10,17 @@ services:
       MYSQL_PASSWORD: 'password'
   router:
     build: 'proxysql'
-    command: '--initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
+    command: '/opt/proxysql/src/proxysql -f --initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
     volumes:
+      - './proxysql/proxysql:/opt/proxysql'
       - './proxysql.router.cfg:/etc/proxysql.cfg'
     links:
       - db
   forwarder:
     build: 'proxysql'
-    command: '--initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
+    command: '/opt/proxysql/src/proxysql -f --initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
     volumes:
+      - './proxysql/proxysql:/opt/proxysql'
       - './proxysql.forwarder.cfg:/etc/proxysql.cfg'
     links:
       - router
