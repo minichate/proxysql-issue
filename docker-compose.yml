@@ -18,9 +18,11 @@ services:
     links:
       - db
   forwarder:
-    image: 'prima/proxysql'
-    command: '--initial -c /etc/proxysql.cfg -D /var/lib/proxysql'
+    build: 'proxysql'
+    cap_add:
+      - SYS_PTRACE
     volumes:
+      - './proxysql/proxysql:/opt/proxysql'
       - './proxysql.forwarder.cfg:/etc/proxysql.cfg'
     links:
       - router

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 cd /opt/proxysql
-make -j 8 debug
+make cleanall
+make -j 4
 
 rm -rf /var/lib/proxysql
 mkdir /var/lib/proxysql
