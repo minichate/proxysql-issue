@@ -17,18 +17,10 @@ services:
       - './proxysql.router.cfg:/etc/proxysql.cfg'
     links:
       - db
-  forwarder:
-    build: 'proxysql'
-    cap_add:
-      - SYS_PTRACE
-    volumes:
-      - './proxysql/proxysql:/opt/proxysql'
-      - './proxysql.forwarder.cfg:/etc/proxysql.cfg'
-    links:
-      - router
   test:
     build: 'test'
+    volumes:
+      - './test:/root'
     links:
       - db
       - router
-      - forwarder

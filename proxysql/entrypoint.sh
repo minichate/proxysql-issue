@@ -1,7 +1,6 @@
 #!/bin/bash
 
 cd /opt/proxysql
-make cleanall
 make -j 4
 
 rm -rf /var/lib/proxysql
